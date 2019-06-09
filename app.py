@@ -9,8 +9,12 @@ def index():
 
 @app.route("/pick_search", methods=['POST'])
 def pick_search():
-    text = request.form['search']
-    form_text = wikipedia.summary(text)
+    try:
+        text = request.form['search']
+        form_text = wikipedia.summary(text)
+    except Exception as e:
+        error = e
+        sorry_text = "This WikiPage does not exists, Search for something else."
     return render_template('content.html', form_text=form_text)
 
 if __name__ == "__main__":
